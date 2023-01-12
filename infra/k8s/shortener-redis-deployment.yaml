@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shortener-redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shortener-redis
+  template:
+    metadata:
+      labels:
+        app: shortener-redis
+    spec:
+      containers:
+        - name: shortener-redis
+          image: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shortener-redis-service
+spec:
+  selector:
+    app: shortener-redis
+  ports:
+    - name: redis
+      protocol: TCP
+      port: 6379
+      targetPort: 6379

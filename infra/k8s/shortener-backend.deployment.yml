@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shortener-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shortener-backend
+  template:
+    metadata:
+      labels:
+        app: shortener-backend
+    spec:
+      containers:
+        - name: shortener-backend
+          image: vyctorguimaraes/shortener-backend:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shortener-backend-service
+spec:
+  selector:
+    app: shortener-backend
+  ports:
+    - name: shortener-backend
+      protocol: TCP
+      port: 3002
+      targetPort: 3002
