@@ -26,7 +26,7 @@ class RedisService {
   }
 
   async set(key: string, value: string): Promise<void> {
-    await this._instance.set(key, JSON.stringify(value));
+    await this._instance.set(key, JSON.stringify(value), 'EX', 900);
   }
 
   async invalidate(key: string): Promise<void> {
